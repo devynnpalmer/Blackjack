@@ -5,11 +5,10 @@ try:
 except ImportError:
     import Tkinter as tkinter
 
-mainWindow = tkinter.Tk()
 
 def load_images(card_images):
-    suits=['heart', 'club', 'diamond', 'spade']
-    face_cards=['jack', 'queen', 'king']
+    suits = ['heart', 'club', 'diamond', 'spade']
+    face_cards = ['jack', 'queen', 'king']
 
     if tkinter.TkVersion >= 8.6:
         extension = 'png'
@@ -29,7 +28,7 @@ def load_images(card_images):
 
 
 def deal_card(frame):
-    next_card = deck.pop()
+    next_card = deck.pop(0)
     tkinter.Label(frame, image=next_card[1], relief='raised').pack(side='left')
     return next_card
 
@@ -41,20 +40,22 @@ def deal_dealer():
 def deal_player():
     deal_card(player_card_frame)
 
+mainWindow = tkinter.Tk()
 
 mainWindow.title("Black Jack")
 mainWindow.geometry("640x480")
+mainWindow.configure(background='green')
 
 result_text = tkinter.StringVar()
 result = tkinter.Label(mainWindow, textvariable=result_text)
-result.grid(row=0, column=0,columnspan=3)
+result.grid(row=0, column=0, columnspan=3)
 
 card_frame = tkinter.Frame(mainWindow, relief="sunken", borderwidth=1, background="green")
 card_frame.grid(row=1, column=0, sticky='ew', columnspan=3, rowspan=2)
 
 dealer_score_label = tkinter.IntVar()
 tkinter.Label(card_frame, text="Dealer", background="green", fg='white').grid(row=0, column=0)
-tkinter.Label(card_frame, textvariable=dealer_score_label, background="green")
+tkinter.Label(card_frame, textvariable=dealer_score_label, background="green", fg="white").grid(row=1, column=0)
 
 dealer_card_frame = tkinter.Frame(card_frame, background="green")
 dealer_card_frame.grid(row=0, column=1, sticky="ew", rowspan=2)
