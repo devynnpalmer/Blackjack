@@ -33,18 +33,36 @@ def deal_card(frame):
     return next_card
 
 
+def score_hand(hand):
+    score = 0
+    ace = False
+    for next_card in hand:
+        card_value = next_card[0]
+        if card_value == 1 and not ace:
+            ace = True
+            card_value = 11
+        score += card_value
+        if score > 21 and ace:
+            score -=10
+            ace = False
+        return score
+
+
+
 def deal_dealer():
     deal_card(dealer_card_frame)
 
 
 def deal_player():
-    player_score = 0
+    global player_score
+    global player_ace
     card_value = deal_card(player_card_frame)
     if card_value == 1 and not player_ace:
         card_value = 11
     player_score += card_value
     if player_score > 21 and player_ace:
         player_score -= 10
+        player_ace = False
     player_score_label.set(player_score)
     if player_score > 21:
         result_text.set("Dealer wins!")
