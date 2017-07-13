@@ -48,9 +48,20 @@ def score_hand(hand):
         return score
 
 
-
 def deal_dealer():
-    deal_card(dealer_card_frame)
+    dealer_hand.append(deal_card(dealer_card_frame))
+    dealer_score = score_hand(dealer_hand)
+    dealer_score_label.set(dealer_score)
+
+    player_score = score_hand(player_hand)
+    if player_score > 21:
+        result_text.set("Dealer wins!")
+    elif dealer_score > 21 or dealer_score < player_score:
+        result_text.set("Player wins!")
+    elif dealer_score > player_score:
+        result_text.set("Dealer wins!")
+    else:
+        result_text.set("Draw!")
 
 
 def deal_player():
@@ -76,7 +87,7 @@ def deal_player():
 
 mainWindow = tkinter.Tk()
 
-mainWindow.title("Black Jack")
+mainWindow.title("Blackjack")
 mainWindow.geometry("640x480")
 mainWindow.configure(background='green')
 
